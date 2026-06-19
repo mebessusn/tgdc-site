@@ -3,3 +3,6 @@ dist/
 .astro/
 .DS_Store
 *.log
+
+# Personal/internal docs kept out of the public repo
+CMS-GUIDE.md

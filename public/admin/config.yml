@@ -7,11 +7,17 @@ backend:
   repo: mebessusn/tgdc-site
   branch: main
 
+# Draft → in review → publish. Changes stay unpublished until you hit Publish.
+publish_mode: editorial_workflow
+
 # Where uploaded images are stored, and how they're referenced on the site.
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
+# Branding shown in the admin panel + a "view live site" link.
 site_url: "https://topgamedevelopmentcompany.com"
+display_url: "https://topgamedevelopmentcompany.com"
+logo_url: "https://topgamedevelopmentcompany.com/favicon.svg"
 
 collections:
   # ---------- DEVLOG ----------
