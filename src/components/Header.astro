@@ -1,0 +1,13 @@
+---
+import { SITE } from '../data/site.js';
+const { nav, brand } = SITE;
+---
+<header class="nav" id="nav">
+  <a href="/" class="brand" aria-label="Top Game Development Company home">
+    <span class="brand-text">{brand.line1}<small>{brand.line2}</small></span>
+  </a>
+  <nav class="nav-links" id="nav-links">
+    {nav.map((n) => <a href={n.href} class={n.cta ? 'nav-cta' : undefined}>{n.label}</a>)}
+  </nav>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">☰</button>
+</header>

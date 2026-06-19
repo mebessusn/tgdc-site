@@ -1,0 +1,222 @@
+# ============================================================
+# Sveltia CMS configuration — the editing screens for /admin
+# ============================================================
+
+backend:
+  name: github
+  repo: mebessusn/tgdc-site
+  branch: main
+
+# Where uploaded images are stored, and how they're referenced on the site.
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+site_url: "https://topgamedevelopmentcompany.com"
+
+collections:
+  # ---------- DEVLOG ----------
+  - name: "devlog"
+    label: "Devlog"
+    label_singular: "Devlog post"
+    description: "News and development updates. Create, edit, and delete posts here."
+    folder: "src/content/devlog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
+      - { label: "Summary", name: "summary", widget: "text", hint: "One or two sentences shown on the devlog list." }
+      - { label: "Tag", name: "tag", widget: "string", required: false, hint: "Optional, e.g. studio, beyond-the-veil" }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  # ---------- HOMEPAGE (single file) ----------
+  - name: "homepage"
+    label: "Homepage & site content"
+    description: "All the text on the main page."
+    files:
+      - name: "site"
+        label: "Site content"
+        file: "src/data/site.json"
+        fields:
+          - label: "Browser tab & search"
+            name: "meta"
+            widget: "object"
+            fields:
+              - { label: "Page title", name: "title", widget: "string" }
+              - { label: "Search description", name: "description", widget: "text" }
+
+          - label: "Logo wordmark"
+            name: "brand"
+            widget: "object"
+            fields:
+              - { label: "Line 1", name: "line1", widget: "string" }
+              - { label: "Line 2", name: "line2", widget: "string" }
+
+          - label: "Navigation menu"
+            name: "nav"
+            widget: "list"
+            label_singular: "Menu item"
+            summary: "{{fields.label}}"
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "Link", name: "href", widget: "string", hint: "On-page link like /#games, or a page like /devlog" }
+              - { label: "Show as button", name: "cta", widget: "boolean", required: false, default: false }
+
+          - label: "Links & form endpoints"
+            name: "config"
+            widget: "object"
+            fields:
+              - { label: "Discord invite URL", name: "discordUrl", widget: "string" }
+              - { label: "Newsletter endpoint", name: "newsletterEndpoint", widget: "string", required: false, hint: "Leave blank for demo mode" }
+              - { label: "Contact form endpoint", name: "contactEndpoint", widget: "string", required: false, hint: "Formspree URL; blank = demo mode" }
+
+          - label: "Hero (top of page)"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Eyebrow (small line above title)", name: "eyebrow", widget: "string" }
+              - { label: "Title — first part", name: "titleLead", widget: "string" }
+              - { label: "Title — highlighted word", name: "titleAccent", widget: "string" }
+              - { label: "Title — end (optional)", name: "titleEnd", widget: "string", required: false }
+              - { label: "Subtitle", name: "sub", widget: "text" }
+              - label: "Primary button"
+                name: "primaryBtn"
+                widget: "object"
+                fields:
+                  - { label: "Label", name: "label", widget: "string" }
+                  - { label: "Link", name: "href", widget: "string" }
+              - label: "Secondary button"
+                name: "ghostBtn"
+                widget: "object"
+                fields:
+                  - { label: "Label", name: "label", widget: "string" }
+                  - { label: "Link", name: "href", widget: "string" }
+
+          - label: "Studio section"
+            name: "studio"
+            widget: "object"
+            fields:
+              - { label: "Kicker", name: "kicker", widget: "string" }
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Lead paragraph", name: "lede", widget: "text" }
+              - { label: "Body paragraph", name: "body", widget: "text" }
+              - label: "Figures"
+                name: "figures"
+                widget: "list"
+                summary: "{{fields.value}} — {{fields.label}}"
+                fields:
+                  - { label: "Value", name: "value", widget: "string" }
+                  - { label: "Label", name: "label", widget: "string" }
+
+          - label: "Games section"
+            name: "games"
+            widget: "object"
+            fields:
+              - { label: "Kicker", name: "kicker", widget: "string" }
+              - { label: "Heading", name: "heading", widget: "string" }
+              - label: "Games"
+                name: "items"
+                widget: "list"
+                label_singular: "Game"
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "Art style", name: "scene", widget: "select", options: ["fantasy", "horror"] }
+                  - { label: "Meta line", name: "meta", widget: "string" }
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Genre", name: "genre", widget: "string" }
+                  - { label: "Description", name: "description", widget: "text", hint: "Wrap a word in *asterisks* for italics." }
+                  - label: "Feature bullets"
+                    name: "features"
+                    widget: "list"
+                    field: { label: "Feature", name: "feature", widget: "string" }
+                  - { label: "Status", name: "status", widget: "string" }
+
+          - label: "Technology section"
+            name: "tech"
+            widget: "object"
+            fields:
+              - { label: "Kicker", name: "kicker", widget: "string" }
+              - { label: "Heading", name: "heading", widget: "string", hint: "Use <br> to force a line break." }
+              - { label: "Subtitle", name: "sub", widget: "text" }
+              - label: "Cards"
+                name: "cards"
+                widget: "list"
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Body", name: "body", widget: "text" }
+
+          - label: "Careers section"
+            name: "careers"
+            widget: "object"
+            fields:
+              - { label: "Kicker", name: "kicker", widget: "string" }
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Subtitle", name: "sub", widget: "text" }
+              - { label: "Apply email", name: "applyEmail", widget: "string" }
+              - label: "Job openings"
+                name: "jobs"
+                widget: "list"
+                label_singular: "Job"
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Description", name: "description", widget: "text" }
+                  - label: "Tags"
+                    name: "tags"
+                    widget: "list"
+                    field: { label: "Tag", name: "tag", widget: "string" }
+              - { label: "Footer line", name: "foot", widget: "string" }
+              - { label: "Footer email", name: "footEmail", widget: "string" }
+
+          - label: "Community section"
+            name: "community"
+            widget: "object"
+            fields:
+              - { label: "Kicker", name: "kicker", widget: "string" }
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Blurb", name: "blurb", widget: "text" }
+              - { label: "Email field label", name: "emailLabel", widget: "string" }
+              - { label: "Email placeholder", name: "emailPlaceholder", widget: "string" }
+              - { label: "Subscribe button label", name: "subscribeLabel", widget: "string" }
+              - { label: "Success message", name: "subscribeSuccess", widget: "string" }
+              - { label: "Error message", name: "subscribeError", widget: "string" }
+              - { label: "Discord button label", name: "discordLabel", widget: "string" }
+
+          - label: "Contact section"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "Kicker", name: "kicker", widget: "string" }
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Intro", name: "intro", widget: "text" }
+              - label: "Contact channels"
+                name: "channels"
+                widget: "list"
+                summary: "{{fields.label}} — {{fields.email}}"
+                fields:
+                  - { label: "Label", name: "label", widget: "string" }
+                  - { label: "Email", name: "email", widget: "string" }
+              - label: "Contact form labels"
+                name: "form"
+                widget: "object"
+                fields:
+                  - { label: "Name label", name: "nameLabel", widget: "string" }
+                  - { label: "Name placeholder", name: "namePlaceholder", widget: "string" }
+                  - { label: "Email label", name: "emailLabel", widget: "string" }
+                  - { label: "Email placeholder", name: "emailPlaceholder", widget: "string" }
+                  - { label: "Subject label", name: "subjectLabel", widget: "string" }
+                  - { label: "Subject placeholder", name: "subjectPlaceholder", widget: "string" }
+                  - { label: "Message label", name: "messageLabel", widget: "string" }
+                  - { label: "Message placeholder", name: "messagePlaceholder", widget: "string" }
+                  - { label: "Button label", name: "button", widget: "string" }
+                  - { label: "Success message", name: "success", widget: "string", hint: "{name} is replaced with the sender's first name." }
+                  - { label: "Error message", name: "error", widget: "string" }
+
+          - label: "Footer"
+            name: "footer"
+            widget: "object"
+            fields:
+              - { label: "Copyright line", name: "copy", widget: "text" }

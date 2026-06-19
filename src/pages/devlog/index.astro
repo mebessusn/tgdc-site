@@ -1,0 +1,26 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('devlog')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const fmtDate = (d) => d.toISOString().slice(0, 10);
+---
+<Base title="Devlog — Top Game Development Company" description="Development updates from Top Game Development Company: combat, world-building, lighting, and tools.">
+  <section class="section devlog">
+    <div class="section-head"><span class="kicker">Devlog</span><h2>Dispatches from the build</h2></div>
+    <ul class="post-list">
+      {posts.map((p) => (
+        <li class="post-item">
+          <a href={`/devlog/${p.id}/`}>
+            <span class="post-date">{fmtDate(p.data.date)}</span>
+            <h3 class="post-title">{p.data.title}</h3>
+            <p class="post-summary">{p.data.summary}</p>
+            {p.data.tag && <span class="post-tag">{p.data.tag}</span>}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>

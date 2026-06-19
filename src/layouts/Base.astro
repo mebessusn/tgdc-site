@@ -1,0 +1,45 @@
+---
+import Seo from '../components/Seo.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../data/site.js';
+import '../styles/global.css';
+
+interface Props { title?: string; description?: string; }
+const { title = SITE.meta.title, description = SITE.meta.description } = Astro.props;
+
+// Only the data the client script (terminal + forms) actually needs.
+const clientData = {
+  games: SITE.games, studio: SITE.studio, tech: SITE.tech,
+  careers: SITE.careers, contact: SITE.contact, community: SITE.community,
+  brand: SITE.brand, config: SITE.config,
+};
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <Seo title={title} description={description} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <Header />
+  <main id="top"><slot /></main>
+  <Footer />
+
+  <script is:inline define:vars={{ clientData }}>
+    window.SITE_CONTENT = clientData;
+  </script>
+  <script>
+    import '../scripts/app.js';
+  </script>
+</body>
+</html>

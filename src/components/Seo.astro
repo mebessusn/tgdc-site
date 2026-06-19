@@ -1,0 +1,28 @@
+---
+// SEO + Open Graph / Twitter meta. Pre-rendered into every page's <head>.
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+}
+const { title, description, image = '/og-image.png' } = Astro.props;
+const siteBase = Astro.site ?? new URL('https://topgamedevelopmentcompany.com');
+const canonical = new URL(Astro.url.pathname, siteBase).href;
+const imageUrl = new URL(image, siteBase).href;
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta name="theme-color" content="#0a0e0a" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Top Game Development Company" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={imageUrl} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />

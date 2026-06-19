@@ -1,0 +1,15 @@
+---
+import { SITE } from '../data/site.js';
+const { nav, brand, footer } = SITE;
+---
+<footer class="footer" id="footer">
+  <div class="footer-top">
+    <a href="/" class="brand">
+      <span class="brand-text">{brand.line1}<small>{brand.line2}</small></span>
+    </a>
+    <div class="footer-links">
+      {nav.map((n) => <a href={n.href}>{n.label}</a>)}
+    </div>
+  </div>
+  <p class="footer-copy">{footer.copy}</p>
+</footer>

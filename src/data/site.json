@@ -1,0 +1,138 @@
+{
+  "meta": {
+    "title": "Top Game Development Company — Cinematic Worlds, Built in Unreal Engine 6",
+    "description": "An indie AAA studio crafting cutting-edge cinematic games in Unreal Engine 6. In development: Beyond the Veil and It Only Gets Darker."
+  },
+  "brand": { "line1": "TOP GAME", "line2": "DEVELOPMENT COMPANY" },
+  "nav": [
+    { "label": "Games", "href": "/#games" },
+    { "label": "Studio", "href": "/#studio" },
+    { "label": "Technology", "href": "/#tech" },
+    { "label": "Careers", "href": "/#careers" },
+    { "label": "Community", "href": "/#join" },
+    { "label": "Devlog", "href": "/devlog" },
+    { "label": "Contact", "href": "/#contact", "cta": true }
+  ],
+  "config": {
+    "discordUrl": "https://discord.gg/your-invite-code",
+    "newsletterEndpoint": "",
+    "contactEndpoint": ""
+  },
+  "hero": {
+    "eyebrow": "A New Game Studio",
+    "titleLead": "Worlds carved from ",
+    "titleAccent": "darkness",
+    "titleEnd": "",
+    "sub": "We build cutting-edge, cinematic games in Unreal Engine 6 — vast, reactive worlds rendered with Nanite and Lumen, driven by deep systems and stories that linger long after the screen goes black.",
+    "primaryBtn": { "label": "explore our games", "href": "/#games" },
+    "ghostBtn": { "label": "join the studio", "href": "/#careers" }
+  },
+  "studio": {
+    "kicker": "The Studio",
+    "heading": "We don't make small games.",
+    "lede": "Top Game Development Company exists to build the kind of games that define a generation of hardware — uncompromising, technically ambitious, and emotionally relentless.",
+    "body": "Every project starts on the bleeding edge of Unreal Engine 6 and stays there. We obsess over the feel of a single sword swing, the way fog pools in a valley at dusk, the dread of a hallway lit by one failing bulb. We are a team of engineers, artists, and storytellers who believe fidelity and craft are not at odds — they are the same pursuit.",
+    "figures": [
+      { "value": "UE6", "label": "Built ground-up on Unreal Engine 6" },
+      { "value": "2", "label": "Original titles in active development" },
+      { "value": "AAA", "label": "Scope, fidelity, and ambition" }
+    ]
+  },
+  "games": {
+    "kicker": "In Development",
+    "heading": "Our Worlds",
+    "items": [
+      {
+        "scene": "fantasy",
+        "meta": "Working title · Open-World Action RPG",
+        "title": "BEYOND THE VEIL",
+        "genre": "Soulslike · Open World · Extraction",
+        "description": "A dying kingdom built atop the bones of fallen gods. Descend into a seamless, hostile open world, carve through punishing enemies, and claim relics of unimaginable power — but you must carry them back to the surface alive. Die, and they belong to whoever finds your corpse.",
+        "features": [
+          "Deliberate, weighty soulslike combat with deep build variety",
+          "High-stakes extraction loop — every relic run is a gamble",
+          "Seamless open world powered by World Partition & Nanite",
+          "Dynamic global illumination and weather via Lumen"
+        ],
+        "status": "Status: Pre-production"
+      },
+      {
+        "scene": "horror",
+        "meta": "Working title · Narrative Horror",
+        "title": "IT ONLY GETS DARKER",
+        "genre": "Detective · Psychological Horror · Single-player",
+        "description": "A detective arrives in a town that shouldn't exist to investigate a disappearance that everyone insists never happened. Light is your only weapon against something wearing a familiar face. A story of dread and doubt in the tradition of *Alan Wake* and the literary horror of Stephen King's *The Outsider*.",
+        "features": [
+          "Investigation-driven narrative with branching consequence",
+          "Light-versus-dark survival horror combat",
+          "Photoreal characters built with MetaHuman",
+          "Cinematic lighting and volumetrics powered by Lumen"
+        ],
+        "status": "Status: Concept & Prototyping"
+      }
+    ]
+  },
+  "tech": {
+    "kicker": "Technology",
+    "heading": "Built on the cutting edge<br>of Unreal Engine 6",
+    "sub": "We adopt the engine's most advanced systems early and push them hard. Our pipeline is designed for fidelity at scale.",
+    "cards": [
+      { "title": "Nanite", "body": "Virtualized geometry for film-quality detail with no perceptible budget — billions of triangles, streamed in real time." },
+      { "title": "Lumen", "body": "Fully dynamic global illumination and reflections, so a single torch — or a single failing flashlight — relights the whole world." },
+      { "title": "World Partition", "body": "Seamless, streamed open worlds with no loading screens, authored by large teams working in parallel." },
+      { "title": "MetaHuman", "body": "Photoreal, fully rigged digital humans driving performance-grade facial acting and emotion." },
+      { "title": "Chaos Physics", "body": "Large-scale destruction and reactive environments that make every world feel physical and alive." },
+      { "title": "Niagara & VFX", "body": "GPU-driven particle systems for embers, fog, blood, and the volumetric atmosphere our games live in." }
+    ]
+  },
+  "careers": {
+    "kicker": "Careers",
+    "heading": "Help us build them",
+    "sub": "We're assembling a senior, craft-obsessed team. Remote-friendly across most roles. If you don't see your exact role below, we still want to hear from you.",
+    "applyEmail": "careers@topgamedevelopmentcompany.com",
+    "jobs": [
+      { "title": "Senior Gameplay Engineer (C++ / UE6)", "description": "Own core combat, traversal, and the extraction loop on Beyond the Veil. Deep Unreal C++ and gameplay systems experience required.", "tags": ["Engineering", "Remote", "Full-time"] },
+      { "title": "Principal Technical Artist (Nanite / Lumen)", "description": "Define our look-dev and rendering pipeline. Bridge art and engineering to push fidelity while protecting frame budgets.", "tags": ["Art", "Hybrid", "Full-time"] },
+      { "title": "Senior Environment Artist", "description": "Build the dread-soaked towns of It Only Gets Darker and the godhaunted ruins of Beyond the Veil using Nanite-first workflows.", "tags": ["Art", "Remote", "Full-time"] },
+      { "title": "Narrative Designer", "description": "Shape the branching investigation and psychological tension at the heart of It Only Gets Darker. Strong horror and mystery writing a plus.", "tags": ["Design", "Remote", "Full-time"] },
+      { "title": "Combat Designer", "description": "Tune the weight, timing, and feel of soulslike combat — enemy movesets, stamina, hit-stop, and risk-reward at the core of every encounter.", "tags": ["Design", "Hybrid", "Full-time"] },
+      { "title": "Animation Director", "description": "Lead our motion-capture and gameplay animation vision across both titles, from MetaHuman facial acting to brutal melee combat.", "tags": ["Animation", "On-site", "Full-time"] }
+    ],
+    "foot": "Don't see your role? Send a portfolio to",
+    "footEmail": "careers@topgamedevelopmentcompany.com"
+  },
+  "community": {
+    "kicker": "Community",
+    "heading": "Join the signal",
+    "blurb": "Get launch dates and devlog drops straight to your inbox, or jump into our Discord and hang out with the team.",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@example.com",
+    "subscribeLabel": "subscribe",
+    "subscribeSuccess": "Transmission received — you're on the list.",
+    "subscribeError": "Enter a valid email address.",
+    "discordLabel": "join our discord"
+  },
+  "contact": {
+    "kicker": "Contact",
+    "heading": "Get in touch",
+    "intro": "For general inquiries, press, and partnerships, reach out below or email us directly. We read every message.",
+    "channels": [
+      { "label": "General", "email": "hello@topgamedevelopmentcompany.com" },
+      { "label": "Press & Media", "email": "press@topgamedevelopmentcompany.com" },
+      { "label": "Careers", "email": "careers@topgamedevelopmentcompany.com" },
+      { "label": "Business", "email": "business@topgamedevelopmentcompany.com" }
+    ],
+    "form": {
+      "nameLabel": "Name", "namePlaceholder": "Your name",
+      "emailLabel": "Email", "emailPlaceholder": "you@example.com",
+      "subjectLabel": "Subject", "subjectPlaceholder": "What's this about?",
+      "messageLabel": "Message", "messagePlaceholder": "How can we help?",
+      "button": "send message",
+      "success": "Thank you, {name}. Your message has been received — we'll be in touch.",
+      "error": "Please complete every field with a valid email address."
+    }
+  },
+  "footer": {
+    "copy": "© 2026 Top Game Development Company. All rights reserved. All titles are works in progress; names and details subject to change."
+  }
+}

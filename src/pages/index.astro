@@ -1,0 +1,152 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE, fmt, mailto, ASCII, SCENE_META } from '../data/site.js';
+
+const { hero, studio, games, tech, careers, community, contact } = SITE;
+const DISCORD_PATH = "M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.198.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9460 2.4189-2.1568 2.4189Z";
+---
+<Base>
+  <!-- Hero (terminal boot screen + interactive shell) -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <pre class="hero-banner">+------------------------------------------------+
+|   TOP GAME DEVELOPMENT CO.   //   est. 2026    |
++------------------------------------------------+</pre>
+      <div class="crt-scan"></div>
+    </div>
+    <div class="hero-inner" id="hero">
+      <p class="eyebrow">{hero.eyebrow}</p>
+      <h1 class="hero-title">{hero.titleLead}<span class="accent">{hero.titleAccent}</span>{hero.titleEnd}</h1>
+      <p class="hero-sub" set:html={fmt(hero.sub)}></p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href={hero.primaryBtn.href}>{hero.primaryBtn.label}</a>
+        <a class="btn btn-ghost" href={hero.ghostBtn.href}>{hero.ghostBtn.label}</a>
+      </div>
+      <div class="cli" id="cli">
+        <div class="cli-head">-- interactive shell -- type <b>help</b> and press enter</div>
+        <div class="cli-log" id="cli-log"></div>
+        <form class="cli-form" id="cli-form" autocomplete="off">
+          <span class="cli-prompt">visitor@topgame:~$</span>
+          <input class="cli-input" id="cli-input" name="cmd" spellcheck="false"
+                 autocapitalize="off" autocorrect="off" aria-label="terminal command input" />
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Studio -->
+  <section class="section studio" id="studio">
+    <div class="section-head"><span class="kicker">{studio.kicker}</span><h2>{studio.heading}</h2></div>
+    <div class="studio-body">
+      <p class="lede" set:html={fmt(studio.lede)}></p>
+      <p set:html={fmt(studio.body)}></p>
+      <div class="studio-figures">
+        {studio.figures.map((f) => <div><strong>{f.value}</strong><span>{f.label}</span></div>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Games -->
+  <section class="games" id="games">
+    <div class="section-head center"><span class="kicker">{games.kicker}</span><h2>{games.heading}</h2></div>
+    {games.items.map((game, i) => {
+      const meta = SCENE_META[game.scene] ?? SCENE_META.fantasy;
+      const art = ASCII[game.scene] ?? ASCII.fantasy;
+      return (
+        <article class={`game${i % 2 === 1 ? ' reverse' : ''}`} data-theme={meta.theme}>
+          <div class="game-scene" aria-hidden="true">
+            <div class={`term`}>
+              <div class="term-bar">
+                <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
+                <span class="term-name">{meta.file}</span>
+              </div>
+              <pre class="ascii">{art}</pre>
+              <div class="crt-scan"></div>
+            </div>
+          </div>
+          <div class="game-copy">
+            <span class="game-meta">{game.meta}</span>
+            <h3 class="game-title">{game.title}</h3>
+            <p class="game-genre">{game.genre}</p>
+            <p set:html={fmt(game.description)}></p>
+            <ul class="game-features">
+              {game.features.map((f) => <li set:html={fmt(f)}></li>)}
+            </ul>
+            <span class="status-line"><i></i> {game.status}</span>
+          </div>
+        </article>
+      );
+    })}
+  </section>
+
+  <!-- Technology -->
+  <section class="section tech" id="tech">
+    <div class="section-head center">
+      <span class="kicker">{tech.kicker}</span><h2 set:html={tech.heading}></h2>
+      <p class="section-sub" set:html={fmt(tech.sub)}></p>
+    </div>
+    <div class="tech-grid">
+      {tech.cards.map((c) => <div class="tech-card"><h4>{c.title}</h4><p set:html={fmt(c.body)}></p></div>)}
+    </div>
+  </section>
+
+  <!-- Careers -->
+  <section class="section careers" id="careers">
+    <div class="section-head center">
+      <span class="kicker">{careers.kicker}</span><h2>{careers.heading}</h2>
+      <p class="section-sub" set:html={fmt(careers.sub)}></p>
+    </div>
+    <ul class="jobs">
+      {careers.jobs.map((j) => (
+        <li class="job">
+          <div class="job-main"><h4>{j.title}</h4><p set:html={fmt(j.description)}></p></div>
+          <div class="job-tags">{j.tags.map((t) => <span>{t}</span>)}</div>
+          <a class="job-apply" href={mailto(careers.applyEmail, 'Application: ' + j.title)}>Apply</a>
+        </li>
+      ))}
+    </ul>
+    <p class="careers-foot">{careers.foot} <a href={mailto(careers.footEmail)}>{careers.footEmail}</a>.</p>
+  </section>
+
+  <!-- Community -->
+  <section class="section join" id="join">
+    <div class="section-head center">
+      <span class="kicker">{community.kicker}</span><h2>{community.heading}</h2>
+      <p class="section-sub" set:html={fmt(community.blurb)}></p>
+    </div>
+    <div class="join-grid">
+      <form class="news-form" id="news-form" novalidate>
+        <label><span>{community.emailLabel}</span><input type="email" name="email" placeholder={community.emailPlaceholder} required /></label>
+        <button class="btn btn-primary" type="submit">{community.subscribeLabel}</button>
+        <p class="form-status" id="news-status" role="status"></p>
+      </form>
+      <a class="discord-btn" href={SITE.config.discordUrl} target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d={DISCORD_PATH}></path></svg>
+        <span class="discord-label">{community.discordLabel}</span>
+        <div class="crt-scan"></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section contact" id="contact">
+    <div class="contact-grid">
+      <div class="contact-copy">
+        <span class="kicker">{contact.kicker}</span>
+        <h2>{contact.heading}</h2>
+        <p set:html={fmt(contact.intro)}></p>
+        <ul class="contact-channels">
+          {contact.channels.map((ch) => <li><span>{ch.label}</span><a href={mailto(ch.email)}>{ch.email}</a></li>)}
+        </ul>
+      </div>
+      <form class="contact-form" id="contact-form" novalidate>
+        <label><span>{contact.form.nameLabel}</span><input type="text" name="name" placeholder={contact.form.namePlaceholder} required /></label>
+        <label><span>{contact.form.emailLabel}</span><input type="email" name="email" placeholder={contact.form.emailPlaceholder} required /></label>
+        <label><span>{contact.form.subjectLabel}</span><input type="text" name="subject" placeholder={contact.form.subjectPlaceholder} required /></label>
+        <label><span>{contact.form.messageLabel}</span><textarea name="message" rows="4" placeholder={contact.form.messagePlaceholder} required></textarea></label>
+        <button type="submit" class="btn btn-primary btn-block">{contact.form.button}</button>
+        <p class="form-status" id="form-status" role="status"></p>
+      </form>
+    </div>
+  </section>
+</Base>
