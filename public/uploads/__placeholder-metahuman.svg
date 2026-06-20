@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400" role="img" aria-label="Animated MetaHuman face wireframe placeholder">
+  <defs>
+    <style>
+      .bg { fill: #04060a; }
+      .grid { stroke: #0c3b22; stroke-width: 1; }
+      .scan { fill: #2fe07a; opacity: .06; animation: scan 3.2s linear infinite; }
+      .label { fill: #7bffb0; font-family: 'Ubuntu Mono', monospace; font-size: 18px; }
+      .dim { fill: #2fe07a; opacity: .6; }
+      .mesh { fill: none; stroke: #2fe07a; stroke-width: 1.4; }
+      .feat { fill: none; stroke: #7bffb0; stroke-width: 1.6; }
+      .lm { fill: #aaffce; animation: lm 2.2s ease-in-out infinite; }
+      .eye { fill: #eafff3; transform-box: fill-box; transform-origin: center;
+             animation: blink 3.4s ease-in-out infinite; }
+      .fscan { stroke: #d7ffe8; stroke-width: 2; opacity: .7; animation: fscan 3.6s ease-in-out infinite; }
+      @keyframes lm { 0%,100% { opacity: .3; } 50% { opacity: 1; } }
+      @keyframes blink { 0%,92%,100% { transform: scaleY(1); } 96% { transform: scaleY(.1); } }
+      @keyframes fscan { 0% { transform: translateY(-90px); opacity: 0; } 15% { opacity: .7; }
+                         85% { opacity: .7; } 100% { transform: translateY(110px); opacity: 0; } }
+      @keyframes scan { 0% { transform: translateY(-40px); } 100% { transform: translateY(400px); } }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="640" height="400"/>
+  <g class="grid">
+    <line x1="0" y1="100" x2="640" y2="100"/><line x1="0" y1="200" x2="640" y2="200"/>
+    <line x1="0" y1="300" x2="640" y2="300"/>
+    <line x1="160" y1="0" x2="160" y2="400"/><line x1="320" y1="0" x2="320" y2="400"/>
+    <line x1="480" y1="0" x2="480" y2="400"/>
+  </g>
+
+  <!-- head + facial mesh -->
+  <ellipse class="mesh" cx="320" cy="180" rx="92" ry="112"/>
+  <path class="mesh" d="M320 70 L320 300"/>
+  <path class="mesh" d="M236 150 Q320 130 404 150"/>
+  <path class="mesh" d="M232 210 Q320 230 408 210"/>
+  <path class="mesh" d="M260 90 Q320 78 380 90"/>
+  <path class="mesh" d="M252 260 Q320 282 388 260"/>
+
+  <!-- eyes (left blinks) -->
+  <ellipse class="eye" cx="285" cy="165" rx="13" ry="8"/>
+  <ellipse class="eye" cx="355" cy="165" rx="13" ry="8" style="animation-delay:.1s"/>
+
+  <!-- nose + mouth -->
+  <path class="feat" d="M320 175 L312 205 L328 205"/>
+  <path class="feat" d="M288 238 Q320 252 352 238"/>
+
+  <!-- landmark points -->
+  <circle class="lm" cx="236" cy="150" r="3"/>
+  <circle class="lm" cx="404" cy="150" r="3" style="animation-delay:.3s"/>
+  <circle class="lm" cx="320" cy="120" r="3" style="animation-delay:.6s"/>
+  <circle class="lm" cx="320" cy="260" r="3" style="animation-delay:.9s"/>
+  <circle class="lm" cx="252" cy="210" r="3" style="animation-delay:.45s"/>
+  <circle class="lm" cx="388" cy="210" r="3" style="animation-delay:.75s"/>
+
+  <!-- 3D capture scan sweeping the face -->
+  <line class="fscan" x1="232" y1="180" x2="408" y2="180"/>
+
+  <rect class="scan" x="0" y="0" width="640" height="40"/>
+  <text class="label" x="24" y="368">METAHUMAN <tspan class="dim">// photoreal digital humans</tspan></text>
+</svg>

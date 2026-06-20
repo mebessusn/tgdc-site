@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400" role="img" aria-label="Animated Chaos Physics destruction placeholder">
+  <defs>
+    <style>
+      .bg { fill: #04060a; }
+      .grid { stroke: #0c3b22; stroke-width: 1; }
+      .scan { fill: #2fe07a; opacity: .06; animation: scan 3.2s linear infinite; }
+      .label { fill: #7bffb0; font-family: 'Ubuntu Mono', monospace; font-size: 18px; }
+      .dim { fill: #2fe07a; opacity: .6; }
+      .frag { fill: #0c3b22; stroke: #2fe07a; stroke-width: 1.5;
+              transform-box: fill-box; transform-origin: center;
+              animation: shatter 3.6s cubic-bezier(.5,0,.7,1) infinite; }
+      @keyframes shatter {
+        0%, 22%  { transform: none; opacity: 1; }
+        60%      { opacity: 1; }
+        100%     { transform: translate(var(--dx), var(--dy)) rotate(var(--r)); opacity: 0; }
+      }
+      @keyframes scan { 0% { transform: translateY(-40px); } 100% { transform: translateY(400px); } }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="640" height="400"/>
+  <g class="grid">
+    <line x1="0" y1="100" x2="640" y2="100"/><line x1="0" y1="200" x2="640" y2="200"/>
+    <line x1="0" y1="300" x2="640" y2="300"/>
+    <line x1="160" y1="0" x2="160" y2="400"/><line x1="320" y1="0" x2="320" y2="400"/>
+    <line x1="480" y1="0" x2="480" y2="400"/>
+  </g>
+
+  <!-- a block shattering outward from center, then reforming -->
+  <g>
+    <rect class="frag" x="248" y="118" width="48" height="48" style="--dx:-130px;--dy:-110px;--r:-50deg"/>
+    <rect class="frag" x="300" y="118" width="48" height="48" style="--dx:0px;--dy:-150px;--r:20deg"/>
+    <rect class="frag" x="352" y="118" width="48" height="48" style="--dx:140px;--dy:-110px;--r:60deg"/>
+    <rect class="frag" x="248" y="170" width="48" height="48" style="--dx:-165px;--dy:0px;--r:-30deg"/>
+    <rect class="frag" x="300" y="170" width="48" height="48" style="--dx:12px;--dy:14px;--r:90deg"/>
+    <rect class="frag" x="352" y="170" width="48" height="48" style="--dx:165px;--dy:0px;--r:40deg"/>
+    <rect class="frag" x="248" y="222" width="48" height="48" style="--dx:-130px;--dy:120px;--r:-60deg"/>
+    <rect class="frag" x="300" y="222" width="48" height="48" style="--dx:0px;--dy:152px;--r:-20deg"/>
+    <rect class="frag" x="352" y="222" width="48" height="48" style="--dx:140px;--dy:120px;--r:70deg"/>
+  </g>
+
+  <rect class="scan" x="0" y="0" width="640" height="40"/>
+  <text class="label" x="24" y="368">CHAOS PHYSICS <tspan class="dim">// real-time destruction</tspan></text>
+</svg>

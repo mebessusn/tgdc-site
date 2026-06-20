@@ -8,11 +8,9 @@ import '../styles/global.css';
 interface Props { title?: string; description?: string; }
 const { title = SITE.meta.title, description = SITE.meta.description } = Astro.props;
 
-// Only the data the client script (terminal + forms) actually needs.
+// Only the data the client script (contact + newsletter forms) actually needs.
 const clientData = {
-  games: SITE.games, studio: SITE.studio, tech: SITE.tech,
-  careers: SITE.careers, contact: SITE.contact, community: SITE.community,
-  brand: SITE.brand, config: SITE.config,
+  contact: SITE.contact, community: SITE.community, config: SITE.config,
 };
 ---
 <!doctype html>

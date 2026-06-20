@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400" role="img" aria-label="Animated Lumen global illumination placeholder">
+  <defs>
+    <radialGradient id="lglow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#d7ffe8"/>
+      <stop offset="35%" stop-color="#2fe07a" stop-opacity=".8"/>
+      <stop offset="100%" stop-color="#2fe07a" stop-opacity="0"/>
+    </radialGradient>
+    <style>
+      .bg { fill: #04060a; }
+      .grid { stroke: #0c3b22; stroke-width: 1; }
+      .scan { fill: #2fe07a; opacity: .06; animation: scan 3.2s linear infinite; }
+      .label { fill: #7bffb0; font-family: 'Ubuntu Mono', monospace; font-size: 18px; }
+      .dim { fill: #2fe07a; opacity: .6; }
+      .glow { transform-origin: 320px 190px; animation: pulse 2.6s ease-in-out infinite; }
+      .rays { transform-origin: 320px 190px; animation: spin 16s linear infinite; }
+      .ray { stroke: #7bffb0; stroke-width: 2; opacity: .45; }
+      .core { fill: #eafff3; }
+      .bounce { fill: #aaffce; animation: blink 1.9s ease-in-out infinite; }
+      @keyframes pulse { 0%,100% { transform: scale(.75); opacity: .7; } 50% { transform: scale(1.12); opacity: 1; } }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      @keyframes blink { 0%,100% { opacity: .25; } 50% { opacity: 1; } }
+      @keyframes scan { 0% { transform: translateY(-40px); } 100% { transform: translateY(400px); } }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="640" height="400"/>
+  <g class="grid">
+    <line x1="0" y1="100" x2="640" y2="100"/><line x1="0" y1="200" x2="640" y2="200"/>
+    <line x1="0" y1="300" x2="640" y2="300"/>
+    <line x1="160" y1="0" x2="160" y2="400"/><line x1="320" y1="0" x2="320" y2="400"/>
+    <line x1="480" y1="0" x2="480" y2="400"/>
+  </g>
+
+  <g class="rays">
+    <line class="ray" x1="200" y1="190" x2="440" y2="190"/>
+    <line class="ray" x1="320" y1="70"  x2="320" y2="310"/>
+    <line class="ray" x1="235" y1="105" x2="405" y2="275"/>
+    <line class="ray" x1="405" y1="105" x2="235" y2="275"/>
+  </g>
+
+  <circle class="glow" cx="320" cy="190" r="80" fill="url(#lglow)"/>
+  <circle class="core" cx="320" cy="190" r="9"/>
+
+  <!-- bounced light hitting surfaces -->
+  <circle class="bounce" cx="160" cy="300" r="4"/>
+  <circle class="bounce" cx="480" cy="300" r="4" style="animation-delay:.4s"/>
+  <circle class="bounce" cx="240" cy="110" r="3" style="animation-delay:.8s"/>
+  <circle class="bounce" cx="430" cy="120" r="3" style="animation-delay:1.2s"/>
+
+  <rect class="scan" x="0" y="0" width="640" height="40"/>
+  <text class="label" x="24" y="368">LUMEN <tspan class="dim">// dynamic global illumination</tspan></text>
+</svg>

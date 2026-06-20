@@ -1,6 +1,6 @@
-/* Client behavior for the Astro site: nav, reveal, interactive terminal,
-   and form submission. The DOM is pre-rendered by Astro; this only wires
-   up interactivity. Reads window.SITE_CONTENT (injected by Base.astro). */
+/* Client behavior for the Astro site: nav, reveal, and form submission.
+   The DOM is pre-rendered by Astro; this only wires up interactivity.
+   Reads window.SITE_CONTENT (injected by Base.astro). */
 (() => {
   'use strict';
   const C = window.SITE_CONTENT;
@@ -8,10 +8,6 @@
 
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const $ = (s) => document.querySelector(s);
-  const esc = (s = '') => String(s).replace(/[&<>"]/g, (c) =>
-    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const mailto = (email, subject) =>
-    `mailto:${email}` + (subject ? `?subject=${encodeURIComponent(subject)}` : '');
   const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 
   /* ---- nav ---- */
@@ -38,8 +34,31 @@
     revealEls.forEach((el) => io.observe(el));
   }
 
+  /* ---- tech card hover video (play only while hovered) ---- */
+  document.querySelectorAll('.tech-card.has-media video').forEach((v) => {
+    const card = v.closest('.tech-card');
+    const play = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+    const stop = () => { v.pause(); v.currentTime = 0; };
+    card.addEventListener('mouseenter', play);
+    card.addEventListener('mouseleave', stop);
+    card.addEventListener('focusin', play);
+    card.addEventListener('focusout', stop);
+  });
+
   /* ---- forms ---- */
   const post = (url, fd) => fetch(url, { method: 'POST', headers: { Accept: 'application/json' }, body: fd });
+
+  // Mailchimp's signup endpoint blocks fetch/CORS, so it's called via JSONP:
+  // a <script> tag whose URL names a global callback Mailchimp invokes with the result.
+  const jsonp = (url) => new Promise((resolve, reject) => {
+    const cb = 'mc_cb_' + Math.random().toString(36).slice(2);
+    const s = document.createElement('script');
+    const cleanup = () => { delete window[cb]; s.remove(); };
+    window[cb] = (data) => { cleanup(); resolve(data); };
+    s.onerror = () => { cleanup(); reject(new Error('network')); };
+    s.src = url + (url.includes('?') ? '&' : '?') + 'c=' + cb;
+    document.body.appendChild(s);
+  });
 
   const form = $('#contact-form');
   const status = $('#form-status');
@@ -76,83 +95,19 @@
     const endpoint = C.config && C.config.newsletterEndpoint;
     if (!endpoint) { ok(); return; }
     nstatus.textContent = 'subscribing…'; nstatus.className = 'form-status';
+    // Mailchimp: convert the embedded-form URL to its JSONP endpoint and submit.
+    if (/list-manage\.com/.test(endpoint)) {
+      const base = endpoint.replace(/&amp;/g, '&').replace('/subscribe/post', '/subscribe/post-json');
+      const url = base + (base.includes('?') ? '&' : '?') + 'EMAIL=' + encodeURIComponent(email);
+      try {
+        const data = await jsonp(url);
+        if (data && data.result === 'success') { ok(); }
+        else { nstatus.textContent = (data && data.msg) ? data.msg.replace(/^\d+\s*-\s*/, '') : 'Subscription failed — try again later.'; nstatus.className = 'form-status err'; }
+      } catch (_) { nstatus.textContent = 'Network error — try again later.'; nstatus.className = 'form-status err'; }
+      return;
+    }
     try { const r = await post(endpoint, fd); r.ok ? ok()
       : (nstatus.textContent = 'Subscription failed — try again later.', nstatus.className = 'form-status err'); }
     catch (_) { nstatus.textContent = 'Network error — try again later.'; nstatus.className = 'form-status err'; }
   });
-
-  /* ---- interactive terminal ---- */
-  const logEl = $('#cli-log'), cliForm = $('#cli-form'), input = $('#cli-input');
-  if (cliForm && C.games) {
-    const games = C.games.items || [];
-    const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
-    const out = (html, cls) => {
-      const d = document.createElement('div');
-      d.className = 'cli-out' + (cls ? ' ' + cls : '');
-      d.innerHTML = String(html).replace(/\n/g, '<br>');
-      logEl.appendChild(d);
-    };
-    const scroll = () => { logEl.scrollTop = logEl.scrollHeight; };
-    const cmds = {
-      help: () => [
-        'available commands:',
-        '  help .......... show this list',
-        '  about ......... about the studio',
-        '  games ......... list our games',
-        '  cat &lt;game&gt; ..... read a game dossier',
-        '  tech .......... our technology stack',
-        '  careers ....... open positions',
-        '  contact ....... how to reach us',
-        '  discord ....... join the community',
-        '  devlog ........ read the devlog',
-        '  subscribe ..... newsletter signup',
-        '  clear ......... clear the screen',
-      ].join('\n'),
-      about: () => C.studio.lede,
-      studio: () => C.studio.lede,
-      games: () => games.map((g) => `  ${slug(g.title)}  —  ${g.title} (${g.genre})`).join('\n'),
-      ls: (a) => (a[0] === 'games'
-        ? games.map((g) => slug(g.title)).join('  ')
-        : 'about  games  technology  careers  community  devlog  contact'),
-      cat: (a) => {
-        const key = (a[0] || '').toLowerCase();
-        if (!key) return 'usage: cat &lt;game&gt;  (try: cat ' + slug(games[0].title) + ')';
-        if (key === 'about' || key === 'studio') return C.studio.lede;
-        const g = games.find((x) => slug(x.title) === key || slug(x.title).includes(key) || x.title.toLowerCase().includes(key));
-        return g ? `${g.title}\n${g.genre}\n\n${g.description}` : `cat: ${esc(key)}: no such file`;
-      },
-      tech: () => 'built on Unreal Engine 6:\n' + C.tech.cards.map((c) => '  - ' + c.title).join('\n'),
-      stack: () => cmds.tech(),
-      careers: () => C.careers.jobs.map((j) => '  - ' + j.title).join('\n') + `\n\napply: ${C.careers.applyEmail}`,
-      jobs: () => cmds.careers(),
-      contact: () => C.contact.channels.map((ch) => `  ${ch.label}: <a href="${mailto(ch.email)}">${ch.email}</a>`).join('\n'),
-      discord: () => `opening discord… <a href="${C.config.discordUrl}" target="_blank" rel="noopener">${C.config.discordUrl}</a>`,
-      devlog: () => { location.href = '/devlog/'; return 'opening devlog…'; },
-      subscribe: () => { location.hash = '#join'; setTimeout(() => $('#news-form input')?.focus(), 350); return 'newsletter signup below ↓'; },
-      newsletter: () => cmds.subscribe(),
-      whoami: () => 'guest@topgame — welcome, traveler.',
-      banner: () => `${C.brand.line1} · ${C.brand.line2}`,
-      clear: () => { logEl.innerHTML = ''; return null; },
-    };
-    const history = []; let hi = -1;
-    const run = (raw) => {
-      const line = (raw || '').trim();
-      out(`<span class="cli-prompt">visitor@topgame:~$</span> ${esc(line)}`, 'cli-echo');
-      if (!line) { scroll(); return; }
-      history.push(line); hi = history.length;
-      const [name, ...args] = line.split(/\s+/);
-      const fn = cmds[name.toLowerCase()];
-      if (!fn) { out(`command not found: ${esc(name)} — type 'help'`, 'cli-err'); scroll(); return; }
-      const res = fn(args);
-      if (res != null) out(res);
-      scroll();
-    };
-    cliForm.addEventListener('submit', (e) => { e.preventDefault(); run(input.value); input.value = ''; });
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowUp') { if (hi > 0) { hi--; input.value = history[hi] || ''; e.preventDefault(); } }
-      else if (e.key === 'ArrowDown') { if (hi < history.length) { hi++; input.value = history[hi] || ''; } }
-    });
-    $('#cli').addEventListener('click', () => input.focus());
-    out("type <b>help</b> for a list of commands.", 'cli-dim');
-  }
 })();

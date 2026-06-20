@@ -75,7 +75,7 @@ collections:
             widget: "object"
             fields:
               - { label: "Discord invite URL", name: "discordUrl", widget: "string" }
-              - { label: "Newsletter endpoint", name: "newsletterEndpoint", widget: "string", required: false, hint: "Leave blank for demo mode" }
+              - { label: "Newsletter endpoint", name: "newsletterEndpoint", widget: "string", required: false, hint: "Paste your Mailchimp embedded-form URL (the form 'action', e.g. https://YOURACCOUNT.us21.list-manage.com/subscribe/post?u=...&id=...). Leave blank for demo mode." }
               - { label: "Contact form endpoint", name: "contactEndpoint", widget: "string", required: false, hint: "Formspree URL; blank = demo mode" }
 
           - label: "Hero (top of page)"
@@ -153,6 +153,7 @@ collections:
                 fields:
                   - { label: "Title", name: "title", widget: "string" }
                   - { label: "Body", name: "body", widget: "text" }
+                  - { label: "Hover media (GIF, MP4, or WebM)", name: "media", widget: "file", required: false, hint: "Optional. Plays when a visitor hovers this card. A short muted MP4/WebM clip is recommended — far smaller than an animated GIF. Leave blank for no hover effect." }
 
           - label: "Careers section"
             name: "careers"

@@ -192,11 +192,27 @@ main, .nav, .footer { position: relative; z-index: 1; }
 
 /* ===== Technology ===== */
 .tech-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-.tech-card { padding: 22px 20px; border: 1px solid var(--line); background: var(--bg-2); }
+.tech-card { position: relative; overflow: hidden; padding: 22px 20px; border: 1px solid var(--line); background: var(--bg-2); }
 .tech-card:hover { border-color: var(--green); }
 .tech-card h4 { font-size: 21px; font-weight: 700; color: var(--green-br); margin-bottom: 10px; }
 .tech-card h4::before { content: "> "; color: var(--green-dim); }
 .tech-card p { color: var(--green); font-size: 16px; }
+
+/* Hover-reveal media (gif/video) — crossfades over the card text */
+.tech-card.has-media { cursor: pointer; }
+.tech-card-text { transition: opacity .4s ease; }
+.tech-card-media {
+  position: absolute; inset: 0; opacity: 0; pointer-events: none;
+  background: #000; transition: opacity .4s ease;
+}
+.tech-card-media img, .tech-card-media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tech-card.has-media:hover .tech-card-text,
+.tech-card.has-media:focus-within .tech-card-text { opacity: 0; }
+.tech-card.has-media:hover .tech-card-media,
+.tech-card.has-media:focus-within .tech-card-media { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .tech-card-text, .tech-card-media { transition: opacity .15s linear; }
+}
 
 /* ===== Careers ===== */
 .jobs { list-style: none; display: grid; gap: 12px; }
@@ -247,27 +263,6 @@ main, .nav, .footer { position: relative; z-index: 1; }
 .footer-links a:hover { color: var(--green-br); }
 .footer-copy { font-size: 15px; color: var(--green-dim); border-top: 1px dashed var(--line); padding-top: 18px; }
 .footer-copy::before { content: "$ "; }
-
-/* ===== Interactive terminal (hero CLI) ===== */
-.cli {
-  margin-top: 30px; max-width: 680px;
-  border: 1px solid var(--line); background: rgba(0,0,0,.3);
-}
-.cli-head { padding: 7px 11px; font-size: 14px; color: var(--green-dim); border-bottom: 1px solid var(--line); }
-.cli-head b { color: var(--green-br); }
-.cli-log { max-height: 210px; overflow-y: auto; padding: 11px; font-size: 15px; line-height: 1.5; white-space: pre-wrap; }
-.cli-log::-webkit-scrollbar { width: 8px; }
-.cli-log::-webkit-scrollbar-thumb { background: var(--green-fa); }
-.cli-out { margin-bottom: 2px; color: var(--green); }
-.cli-out.cli-echo { color: var(--green-br); }
-.cli-out.cli-err { color: var(--amber); }
-.cli-out.cli-dim { color: var(--green-dim); }
-.cli-out a { color: var(--green-br); text-decoration: underline; }
-.cli-prompt { color: var(--green-dim); }
-.cli-form { display: flex; align-items: center; gap: 8px; padding: 9px 11px; border-top: 1px solid var(--line); }
-.cli-form .cli-prompt { white-space: nowrap; }
-.cli-input { flex: 1; min-width: 0; background: transparent; border: 0; outline: none;
-  color: var(--green-br); font: inherit; caret-color: var(--green); }
 
 /* ===== Community (newsletter + Discord) ===== */
 .join-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 22px; align-items: stretch; }

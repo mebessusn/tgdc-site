@@ -40,7 +40,7 @@
   ],
   "config": {
     "discordUrl": "https://discord.gg/8FBXRrcyWE",
-    "newsletterEndpoint": "",
+    "newsletterEndpoint": "https://topgamedevelopmentcompany.us6.list-manage.com/subscribe/post?u=8b7c23e82e5c5e1d941a07b88&id=de356fbb79&f_id=0094f2e5f0",
     "contactEndpoint": ""
   },
   "hero": {
@@ -119,27 +119,33 @@
     "cards": [
       {
         "title": "Nanite",
-        "body": "Virtualized geometry for film-quality detail with no perceptible budget — billions of triangles, streamed in real time."
+        "body": "Virtualized geometry for film-quality detail with no perceptible budget — billions of triangles, streamed in real time.",
+        "media": "/uploads/__placeholder-nanite.svg"
       },
       {
         "title": "Lumen",
-        "body": "Fully dynamic global illumination and reflections, so a single torch — or a single failing flashlight — relights the whole world."
+        "body": "Fully dynamic global illumination and reflections, so a single torch — or a single failing flashlight — relights the whole world.",
+        "media": "/uploads/__placeholder-lumen.svg"
       },
       {
         "title": "World Partition",
-        "body": "Seamless, streamed open worlds with no loading screens, authored by large teams working in parallel."
+        "body": "Seamless, streamed open worlds with no loading screens, authored by large teams working in parallel.",
+        "media": "/uploads/__placeholder-world-partition.svg"
       },
       {
         "title": "MetaHuman",
-        "body": "Photoreal, fully rigged digital humans driving performance-grade facial acting and emotion."
+        "body": "Photoreal, fully rigged digital humans driving performance-grade facial acting and emotion.",
+        "media": "/uploads/__placeholder-metahuman.svg"
       },
       {
         "title": "Chaos Physics",
-        "body": "Large-scale destruction and reactive environments that make every world feel physical and alive."
+        "body": "Large-scale destruction and reactive environments that make every world feel physical and alive.",
+        "media": "/uploads/__placeholder-chaos.svg"
       },
       {
         "title": "Niagara & VFX",
-        "body": "GPU-driven particle systems for embers, fog, blood, and the volumetric atmosphere our games live in."
+        "body": "GPU-driven particle systems for embers, fog, blood, and the volumetric atmosphere our games live in.",
+        "media": "/uploads/__placeholder-niagara.svg"
       }
     ]
   },
