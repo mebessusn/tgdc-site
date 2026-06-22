@@ -41,7 +41,7 @@
   "config": {
     "discordUrl": "https://discord.gg/8FBXRrcyWE",
     "newsletterEndpoint": "https://topgamedevelopmentcompany.us6.list-manage.com/subscribe/post?u=8b7c23e82e5c5e1d941a07b88&id=de356fbb79&f_id=0094f2e5f0",
-    "contactEndpoint": ""
+    "contactEndpoint": "https://formspree.io/f/xaqgywke"
   },
   "hero": {
     "eyebrow": "A New Game Studio",
